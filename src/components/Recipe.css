@@ -1,0 +1,10 @@
+.recipe{
+    margin-top: 50px;
+    width: 25rem;
+    text-align: center;
+    padding: 30px 30px 12px 30px;
+    color: #000;
+    background-color: rgba(240, 235, 235, 0.3);
+    border: 6px solid #00ADB5;
+    border-radius: 5px;
+  }

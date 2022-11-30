@@ -11,15 +11,9 @@ interface Recipe {
 
 export const Recipe = () => {
     const [recipe, setRecipe] = useState<Recipe>()
-    const [input, setInput] = useState('')
-
-    const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
-        setInput(e.target.value)
-      }
 
     const fetchRecipeApi = () => {
         fetch ("https://www.themealdb.com/api/json/v1/1/random.php") 
-        // fetch(FetchRecipeURL(input))
         .then(response =>{
             if(response.ok){
                 return response.json();
@@ -83,14 +77,7 @@ export const Recipe = () => {
       <div className="recipe">
         {header}
         <section id='input-section'>
-            <input 
-            type='text'
-            value = {input}
-            placeholder = 'enter a recipe' 
-            className='input_box'
-            onChange = {handleInputChange}
-            ></input>
-            <button onClick= {fetchRecipeApi} className='input_submit' type='submit'>Add</button> 
+            <button onClick= {fetchRecipeApi} className='input_submit' type='submit'>Generate Random Recipe</button> 
         </section>
      {image}
      {paragraph}

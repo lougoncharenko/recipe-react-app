@@ -5,6 +5,7 @@ import './Recipe.css'
 interface Recipe {
     header: string,
     image: string,
+    instructions: string
 }
 
 export const Recipe = () => {
@@ -30,6 +31,7 @@ export const Recipe = () => {
             const RecipeData: Recipe = {
                 header: data.meals[0].strMeal,
                 image: data.meals[0].strMealThumb,
+                instructions: data.meals[0].strInstructions
             }
             setRecipe(RecipeData)
         })
@@ -39,7 +41,13 @@ export const Recipe = () => {
        <h1>{recipe.header}</h1>
     ): <h1>Recipe Finder</h1>
   const image = recipe? (
+        <>
         <img src={recipe.image} alt={recipe.header}></img>
+        <div className='instructions'>
+           <p> {recipe.instructions} </p> 
+        </div>
+        
+        </>
     ): 
     <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> 
     

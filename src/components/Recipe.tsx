@@ -36,15 +36,18 @@ const Recipe = () => {
     }
     
 
-   const markup = recipe? (
-    <>
-       <h3>{recipe.header}</h3>
-        <img src={recipe.image} alt={recipe.header}></img> 
-    </>): <> <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> </>
+   const header = recipe? (
+       <h1>{recipe.header}</h1>
+    ): <h1>Recipe Finder</h1>
   
-  return (
+  const image = recipe? (
+        <img src={recipe.image} alt={recipe.header}></img> 
+    ): 
+    <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> 
+ 
+ return (
       <div className="recipe">
-        <h1>Recipe Finder</h1>
+        {header}
         <section id='input-section'>
             <input 
             type='text'
@@ -55,7 +58,7 @@ const Recipe = () => {
             ></input>
             <button onClick= {fetchRecipeApi} className='input_submit' type='submit'>Add</button> 
         </section>
-     {markup}
+     {image}
       </div>
   );
 }

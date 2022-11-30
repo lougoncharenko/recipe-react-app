@@ -38,7 +38,7 @@ const Recipe = () => {
   return (
       <div className="recipe">
      {markup}
-     <button>Generate Recipe</button>
+     <button onClick = {fetchRecipeApi}> Generate Recipe</button>
       </div>
   );
 }

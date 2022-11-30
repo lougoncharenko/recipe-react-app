@@ -5,7 +5,8 @@ import './Recipe.css'
 interface Recipe {
     header: string,
     image: string,
-    instructions: string
+    instructions: string,
+    ingredientsList: any
 }
 
 export const Recipe = () => {
@@ -27,12 +28,29 @@ export const Recipe = () => {
             }   
         })
         .then(data =>{
-            console.log(data)
+            const recipe=data.meals[0];
+            const getIngredients=Object.keys(recipe)
+                .filter((ingredient)=>{
+                    return ingredient.indexOf('strIngredient') ==0;
+                })
+                .reduce((ingredients:any, ingredient) => {
+                    if (recipe[ingredient] != null) {
+                        ingredients[ingredient] = recipe[ingredient];
+                    }
+                    return ingredients;
+                }, {});
+            const ingredientList = []
+            for(let key in getIngredients){
+                let value=getIngredients[key];
+                ingredientList.push(value)
+            }
             const RecipeData: Recipe = {
                 header: data.meals[0].strMeal,
                 image: data.meals[0].strMealThumb,
-                instructions: data.meals[0].strInstructions
+                instructions: data.meals[0].strInstructions,
+                ingredientsList: ingredientList
             }
+            console.log(getIngredients)
             setRecipe(RecipeData)
         })
         .catch(error=> console.log('Fetch Error:', error));
@@ -46,11 +64,21 @@ export const Recipe = () => {
         <div className='instructions'>
            <p> {recipe.instructions} </p> 
         </div>
-        
         </>
     ): 
     <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> 
     
+    const paragraph = recipe? (
+        <p id='para'>Ingredients List:</p> 
+    ): null
+
+    const ingredients = recipe? (
+        recipe.ingredientsList.map((ingredient: any) => {
+            return <> <ul><li>{ingredient}</li></ul></>
+        })
+    ):null
+   
+
     return (
       <div className="recipe">
         {header}
@@ -65,6 +93,8 @@ export const Recipe = () => {
             <button onClick= {fetchRecipeApi} className='input_submit' type='submit'>Add</button> 
         </section>
      {image}
+     {paragraph}
+     {ingredients}
       </div>
   );
 }

@@ -51,7 +51,7 @@ Src/
 <div align="center">
 
 ## Preview of Web Application
-<img src='/Users/louisagoncharenko/Desktop/recipe-react-app/Screen Shot 2022-11-29 at 10.35.31 PM.png'>
+<img src='Screen Shot 2022-11-29 at 10.35.31 PM.png'>
 
 
 </div>

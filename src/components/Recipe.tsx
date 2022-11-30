@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
+import { FetchRecipeURL } from './FetchRecipeURL';
 import './Recipe.css'
 
 interface Recipe {
@@ -8,6 +9,12 @@ interface Recipe {
 
 const Recipe = () => {
     const [recipe, setRecipe] = useState<Recipe>()
+    const [input, setInput] = useState('')
+
+    const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
+        setInput(e.target.value)
+      }
+
     const fetchRecipeApi = () => {
         fetch ("https://www.themealdb.com/api/json/v1/1/random.php") 
         .then(response =>{
@@ -31,14 +38,24 @@ const Recipe = () => {
 
    const markup = recipe? (
     <>
-       <h1>{recipe.header}</h1>
+       <h3>{recipe.header}</h3>
         <img src={recipe.image} alt={recipe.header}></img> 
-    </>): <> <h1>Recipe Finder</h1> <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> </>
+    </>): <> <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/table-filled-with-large-variety-of-food-shot-from-royalty-free-image-1659038707.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=640:*'></img> </>
   
   return (
       <div className="recipe">
+        <h1>Recipe Finder</h1>
+        <section id='input-section'>
+            <input 
+            type='text'
+            value = {input}
+            placeholder = 'enter a recipe' 
+            className='input_box'
+            onChange = {handleInputChange}
+            ></input>
+            <button onClick= {fetchRecipeApi} className='input_submit' type='submit'>Add</button> 
+        </section>
      {markup}
-     <button onClick = {fetchRecipeApi}> Generate Recipe</button>
       </div>
   );
 }
